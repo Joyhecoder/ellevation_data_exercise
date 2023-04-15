@@ -1,0 +1,43 @@
+import csv
+import json
+
+#file path
+csvPath = r'temp.csv'
+jsonPath = r'temp_data.json'
+
+#*add a column of id numbers to the csv file
+with open('sample-mcas.csv') as input, open('temp.csv', 'w') as output:
+    reader = csv.reader(input, delimiter= ',')
+    writer = csv.writer(output, delimiter=',')
+    
+    all = []
+    row = next(reader)
+    row.insert(0, 'ID')
+    all.append(row)
+    for k, row in enumerate(reader):
+        all.append([str(k+1)] + row)
+    writer.writerows(all)
+
+#*convert CSV to JSON 
+def make_json(csvFilePath, jsonFilePath):
+    #create a dictionary
+    data = []
+    
+    #open a csv reader called DictReader
+    with open (csvFilePath, encoding='utf-8') as csvf:
+        csvReader = csv.DictReader(csvf)
+        
+        #convert each row into a dictionary and add it to data
+        for rows in csvReader:
+            
+            # key = rows['ID']
+            # data[key] = rows
+            data.append(rows)
+            
+    #open a json writer, and use the json.dump() function to jump data
+    with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
+        jsonf.write(json.dumps(data, indent=4))
+        
+        
+
+make_json(csvPath,jsonPath)
