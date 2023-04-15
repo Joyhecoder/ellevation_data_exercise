@@ -96,6 +96,6 @@ def replace_performance_level_values(json_file):
     
     #write the updated python object back to the JSON file   
     with open(json_file, 'w') as file:
-        json.dump(data, file)    
+        json.dump(data, file, indent=4)    
 
 replace_performance_level_values(jsonPath)
