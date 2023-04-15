@@ -98,4 +98,26 @@ def replace_performance_level_values(json_file):
     with open(json_file, 'w') as file:
         json.dump(data, file, indent=4)    
 
-replace_performance_level_values(jsonPath)
+# replace_performance_level_values(jsonPath)
+
+
+#* create a new json file with existing json data:
+def new_json(input_js_file, output_js_file):
+    #read data from existing JSON file
+    with open(input_js_file, 'r') as f:
+        data = json.load(f)
+    
+    #create a new dictionary for new file
+    all_data_arr = []
+    #manipulate data as per requirement
+    for row in data:
+        new_data_dic = {}
+        new_data_dic['NCESID'] = 373737
+        new_data_dic['StudentTestID'] = row["sasid"]
+    all_data_arr.append(new_data_dic)
+    #create a new JSON file and write data to it
+    with open(output_js_file, "w") as f:
+        json.dump(all_data_arr, f, indent=4)
+
+
+new_json(jsonPath, "result.json")
