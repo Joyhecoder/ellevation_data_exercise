@@ -40,4 +40,62 @@ def make_json(csvFilePath, jsonFilePath):
         
         
 
-make_json(csvPath,jsonPath)
+# make_json(csvPath,jsonPath)
+
+#* replace the Performance Level values
+def replace_performance_level_values(json_file):
+    #load the JSON file into a Python object
+    with open(json_file, 'r') as file:
+        data = json.load(file)
+    
+    #eperf2
+    for student in data:
+        if student["eperf2"] == "F":
+            student["eperf2"] = "1-F"
+        elif student["eperf2"] == "W":
+            student["eperf2"] = "2-W"
+        elif student["eperf2"] == "NI":
+            student["eperf2"] = "3-NI"
+        elif student["eperf2"] == "P":
+            student["eperf2"] = "4-P"
+        elif student["eperf2"] == "A":
+            student["eperf2"] = "5-A"
+        elif student["eperf2"] == "P+":
+            student["eperf2"] = "6-P+"
+    
+    #mperf2
+    for student in data:
+        if student["mperf2"] == "F":
+            student["mperf2"] = "1-F"
+        elif student["mperf2"] == "W":
+            student["mperf2"] = "2-W"
+        elif student["mperf2"] == "NI":
+            student["mperf2"] = "3-NI"
+        elif student["mperf2"] == "P":
+            student["mperf2"] = "4-P"
+        elif student["mperf2"] == "A":
+            student["mperf2"] = "5-A"
+        elif student["mperf2"] == "P+":
+            student["mperf2"] = "6-P+"
+    
+    
+    #sperf2
+    for student in data:
+        if student["sperf2"] == "F":
+            student["sperf2"] = "1-F"
+        elif student["sperf2"] == "W":
+            student["sperf2"] = "2-W"
+        elif student["sperf2"] == "NI":
+            student["sperf2"] = "3-NI"
+        elif student["sperf2"] == "P":
+            student["sperf2"] = "4-P"
+        elif student["sperf2"] == "A":
+            student["sperf2"] = "5-A"
+        elif student["sperf2"] == "P+":
+            student["sperf2"] = "6-P+"
+    
+    #write the updated python object back to the JSON file   
+    with open(json_file, 'w') as file:
+        json.dump(data, file)    
+
+replace_performance_level_values(jsonPath)
