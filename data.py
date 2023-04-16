@@ -6,17 +6,22 @@ csvPath = r'temp.csv'
 jsonPath = r'temp_data.json'
 
 #*add a column of id numbers to the csv file
-with open('sample-mcas.csv') as input, open('temp.csv', 'w') as output:
-    reader = csv.reader(input, delimiter= ',')
-    writer = csv.writer(output, delimiter=',')
+def add_id(csv_file, temp_csv_file):
+    with open(csv_file) as input, open(temp_csv_file, 'w') as output:
+        reader = csv.reader(input, delimiter= ',')
+        writer = csv.writer(output, delimiter=',')
+        
+        all = []
+        row = next(reader)
+        row.insert(0, 'ID')
+        all.append(row)
+        for k, row in enumerate(reader):
+            all.append([str(k+1)] + row)
+        writer.writerows(all)
     
-    all = []
-    row = next(reader)
-    row.insert(0, 'ID')
-    all.append(row)
-    for k, row in enumerate(reader):
-        all.append([str(k+1)] + row)
-    writer.writerows(all)
+    
+# add_id(csvPath, jsonPath)
+# add_id("sample-mcas.csv", "test.csv")
 
 #*convert CSV to JSON 
 def make_json(csvFilePath, jsonFilePath):
@@ -37,7 +42,8 @@ def make_json(csvFilePath, jsonFilePath):
     #open a json writer, and use the json.dump() function to jump data
     with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
-        
+   
+     
         
 
 # make_json(csvPath,jsonPath)
@@ -48,56 +54,31 @@ def replace_performance_level_values(json_file):
     with open(json_file, 'r') as file:
         data = json.load(file)
     
-    #eperf2
-    for student in data:
-        if student["eperf2"] == "F":
-            student["eperf2"] = "1-F"
-        elif student["eperf2"] == "W":
-            student["eperf2"] = "2-W"
-        elif student["eperf2"] == "NI":
-            student["eperf2"] = "3-NI"
-        elif student["eperf2"] == "P":
-            student["eperf2"] = "4-P"
-        elif student["eperf2"] == "A":
-            student["eperf2"] = "5-A"
-        elif student["eperf2"] == "P+":
-            student["eperf2"] = "6-P+"
+    #hashtable
+    performance_level_value_reference = {
+        "F": "1-F",
+        "W": "2-W",
+        "NI": "3-NI",
+        "P": "4-P",
+        "A": "5-A",
+        "P+": "6-P+",
+        " ": " "
+    }
     
-    #mperf2
     for student in data:
-        if student["mperf2"] == "F":
-            student["mperf2"] = "1-F"
-        elif student["mperf2"] == "W":
-            student["mperf2"] = "2-W"
-        elif student["mperf2"] == "NI":
-            student["mperf2"] = "3-NI"
-        elif student["mperf2"] == "P":
-            student["mperf2"] = "4-P"
-        elif student["mperf2"] == "A":
-            student["mperf2"] = "5-A"
-        elif student["mperf2"] == "P+":
-            student["mperf2"] = "6-P+"
-    
-    
-    #sperf2
-    for student in data:
-        if student["sperf2"] == "F":
-            student["sperf2"] = "1-F"
-        elif student["sperf2"] == "W":
-            student["sperf2"] = "2-W"
-        elif student["sperf2"] == "NI":
-            student["sperf2"] = "3-NI"
-        elif student["sperf2"] == "P":
-            student["sperf2"] = "4-P"
-        elif student["sperf2"] == "A":
-            student["sperf2"] = "5-A"
-        elif student["sperf2"] == "P+":
-            student["sperf2"] = "6-P+"
+        #eperf2
+        student["eperf2"] = performance_level_value_reference[student["eperf2"]]
+         #mperf2
+        student["mperf2"] = performance_level_value_reference[student["mperf2"]]
+          #sperf2
+        student["sperf2"] = performance_level_value_reference[student["sperf2"]]       
     
     #write the updated python object back to the JSON file   
     with open(json_file, 'w') as file:
         json.dump(data, file, indent=4)    
 
+
+    
 # replace_performance_level_values(jsonPath)
 
 
@@ -203,10 +184,54 @@ def new_json(input_js_file, output_js_file):
     with open(output_js_file, "w") as file:
         json.dump(sorted_all_data_arr, file, indent=4)
 
-   
-  
-    
-    
+# new_json(jsonPath, "result1.json")
 
-new_json(jsonPath, "result.json")
 
+#* Convert json file to csv
+def json_to_csv(json_file, final_csv_file):
+    #open json file and load the data 
+    with open(json_file) as json_file:
+        data = json.load(json_file)
+        
+    #open a file for writing
+    data_file = open(final_csv_file, 'w')
+    
+    #create the csv writer object
+    csv_writer = csv.writer(data_file)
+    
+    #counter variable used for writing headers to the CSV file
+    count = 0
+    
+    for student in data:
+        #writing headers of CSV file
+        if count == 0:
+            header = student.keys()
+            csv_writer.writerow(header)
+            count += 1
+            
+        #write data of CSV file
+        csv_writer.writerow(student.values())
+        
+    data_file.close()
+    
+# json_to_csv("result1.json", "result1.csv")
+
+def process_data(original_csv_file, temp_csv_file, temp_json_file, result_json_file, final_csv_file):
+    #*add a column of id numbers to the csv file
+    add_id(original_csv_file, temp_csv_file)
+    
+    #*convert CSV to JSON 
+    make_json(temp_csv_file, temp_json_file)
+    
+    #* replace the Performance Level values
+    replace_performance_level_values(temp_json_file)
+    
+    #* create a new json file with existing json data:
+    new_json(temp_json_file, result_json_file)
+    
+    #* Convert json file to csv
+    json_to_csv(result_json_file, final_csv_file)
+    
+    print("end of the function")
+    
+process_data("sample-mcas.csv", "p_temp.csv", "p_temp.json", "p_result.json", "p_final.csv")
