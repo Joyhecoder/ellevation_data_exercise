@@ -113,7 +113,6 @@ def new_json(input_js_file, output_js_file):
     
     #*ELA data only
     for row in data:
-        if row[]
         new_data_dic = {}
         new_data_dic['NCESID'] = 373737
         new_data_dic['StudentTestID'] = row['sasid']
@@ -139,9 +138,66 @@ def new_json(input_js_file, output_js_file):
         
         #append each data dictionary into the array
         all_data_arr.append(new_data_dic)
+    
+    #*Math data only
+    for row in data:
+        new_data_dic = {}
+        new_data_dic['NCESID'] = 373737
+        new_data_dic['StudentTestID'] = row['sasid']
+        new_data_dic['StudentLocalID'] = 'missing'
+        new_data_dic['StudentGradeLevel'] = row['stugrade']
+        new_data_dic['TestDate'] = 'May 1'
+        new_data_dic['TestName'] = 'MCAS'
+        new_data_dic['TestTypeName'] = 'MCAS Math'
+        new_data_dic['TestSubjectName'] = 'Math'
+        new_data_dic['TestGradeLevel'] = row['stugrade']
+        new_data_dic['Score1Label'] = 'Performance Level'
+        new_data_dic['Score1Type'] = 'Level'
+        new_data_dic['Score1Value'] = row['mperf2']
+        new_data_dic['Score2Label'] = 'Scaled Score'
+        new_data_dic['Score2Type'] = 'Scale'
+        new_data_dic['Score2Value'] = row['mscaleds']
+        new_data_dic['Score3Label'] = 'CPI'
+        new_data_dic['Score3Type'] = 'Scale'
+        new_data_dic['Score3Value'] = row['mcpi']
+        new_data_dic['Score4Label'] = ''
+        new_data_dic['Score4Type'] = ''
+        new_data_dic['Score4Value'] = ''
+        
+        #append each data dictionary into the array
+        all_data_arr.append(new_data_dic)
+        
+    
+    #*Science data only
+    for row in data:
+        new_data_dic = {}
+        new_data_dic['NCESID'] = 373737
+        new_data_dic['StudentTestID'] = row['sasid']
+        new_data_dic['StudentLocalID'] = 'missing'
+        new_data_dic['StudentGradeLevel'] = row['stugrade']
+        new_data_dic['TestDate'] = 'June 1'
+        new_data_dic['TestName'] = 'MCAS'
+        new_data_dic['TestTypeName'] = 'MCAS Science'
+        new_data_dic['TestSubjectName'] = 'Science'
+        new_data_dic['TestGradeLevel'] = row['stugrade']
+        new_data_dic['Score1Label'] = 'Performance Level'
+        new_data_dic['Score1Type'] = 'Level'
+        new_data_dic['Score1Value'] = row['sperf2']
+        new_data_dic['Score2Label'] = 'Scaled Score'
+        new_data_dic['Score2Type'] = 'Scale'
+        new_data_dic['Score2Value'] = row['sscaleds']
+        new_data_dic['Score3Label'] = 'CPI'
+        new_data_dic['Score3Type'] = 'Scale'
+        new_data_dic['Score3Value'] = row['scpi']
+        new_data_dic['Score4Label'] = ''
+        new_data_dic['Score4Type'] = ''
+        new_data_dic['Score4Value'] = ''
+        
+        #append each data dictionary into the array
+        all_data_arr.append(new_data_dic)
+        
+    print(len(all_data_arr))
     #create a new JSON file and write data to it
-    
-    
     with open(output_js_file, "w") as f:
         json.dump(all_data_arr, f, indent=4)
 
