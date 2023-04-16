@@ -110,14 +110,41 @@ def new_json(input_js_file, output_js_file):
     #create a new dictionary for new file
     all_data_arr = []
     #manipulate data as per requirement
+    
+    #*ELA data only
     for row in data:
+        if row[]
         new_data_dic = {}
         new_data_dic['NCESID'] = 373737
-        new_data_dic['StudentTestID'] = row["sasid"]
-    all_data_arr.append(new_data_dic)
+        new_data_dic['StudentTestID'] = row['sasid']
+        new_data_dic['StudentLocalID'] = 'missing'
+        new_data_dic['StudentGradeLevel'] = row['stugrade']
+        new_data_dic['TestDate'] = 'April 1'
+        new_data_dic['TestName'] = 'MCAS'
+        new_data_dic['TestTypeName'] = 'MCAS ELA'
+        new_data_dic['TestSubjectName'] = 'ELA'
+        new_data_dic['TestGradeLevel'] = row['stugrade']
+        new_data_dic['Score1Label'] = 'Performance Level'
+        new_data_dic['Score1Type'] = 'Level'
+        new_data_dic['Score1Value'] = row['eperf2']
+        new_data_dic['Score2Label'] = 'Scaled Score'
+        new_data_dic['Score2Type'] = 'Scale'
+        new_data_dic['Score2Value'] = row['escaleds']
+        new_data_dic['Score3Label'] = 'CPI'
+        new_data_dic['Score3Type'] = 'Scale'
+        new_data_dic['Score3Value'] = row['ecpi']
+        new_data_dic['Score4Label'] = ''
+        new_data_dic['Score4Type'] = ''
+        new_data_dic['Score4Value'] = ''
+        
+        #append each data dictionary into the array
+        all_data_arr.append(new_data_dic)
     #create a new JSON file and write data to it
+    
+    
     with open(output_js_file, "w") as f:
         json.dump(all_data_arr, f, indent=4)
 
 
 new_json(jsonPath, "result.json")
+
