@@ -61,7 +61,8 @@ def replace_performance_level_values(json_file):
         "NI": "3-NI",
         "P": "4-P",
         "A": "5-A",
-        "P+": "6-P+"
+        "P+": "6-P+",
+        " ": " "
     }
     
     for student in data:
@@ -213,5 +214,24 @@ def json_to_csv(json_file, final_csv_file):
         
     data_file.close()
     
-json_to_csv("result1.json", "result1.csv")
+# json_to_csv("result1.json", "result1.csv")
 
+def process_data(original_csv_file, temp_csv_file, temp_json_file, result_json_file, final_csv_file):
+    #*add a column of id numbers to the csv file
+    add_id(original_csv_file, temp_csv_file)
+    
+    #*convert CSV to JSON 
+    make_json(temp_csv_file, temp_json_file)
+    
+    #* replace the Performance Level values
+    replace_performance_level_values(temp_json_file)
+    
+    #* create a new json file with existing json data:
+    new_json(temp_json_file, result_json_file)
+    
+    #* Convert json file to csv
+    json_to_csv(result_json_file, final_csv_file)
+    
+    print("end of the function")
+    
+process_data("sample-mcas.csv", "p_temp.csv", "p_temp.json", "p_result.json", "p_final.csv")
