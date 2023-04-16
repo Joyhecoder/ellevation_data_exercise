@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 
 #file path
 csvPath = r'temp.csv'
@@ -234,4 +235,19 @@ def process_data(original_csv_file, temp_csv_file, temp_json_file, result_json_f
     
     print("end of the function")
     
-process_data("sample-mcas.csv", "p_temp.csv", "p_temp.json", "p_result.json", "p_final.csv")
+# process_data("sample-mcas.csv", "p_temp.csv", "p_temp.json", "p_result.json", "p_final.csv")
+
+
+
+#* Get all the CSV files and store into an array
+def find_csv_files(path_to_dir, suffix=".csv"):
+    #os.listdir() method is used to et the list of all files and directories in the specified directory
+    file_names = os.listdir(path_to_dir)
+  
+    all_file = [file_name for file_name in file_names if file_name.endswith(suffix)]
+    print("all the files:", all_file)
+    return all_file
+    
+all_file_path = './files'
+files_arr = find_csv_files(all_file_path)
+print(files_arr)
