@@ -196,11 +196,17 @@ def new_json(input_js_file, output_js_file):
         #append each data dictionary into the array
         all_data_arr.append(new_data_dic)
         
-    print(len(all_data_arr))
+    #sort the array by student id 
+    sorted_all_data_arr = sorted(all_data_arr, key=lambda d: d['StudentTestID'])
+    # print(sorted_all_data_arr)
     #create a new JSON file and write data to it
-    with open(output_js_file, "w") as f:
-        json.dump(all_data_arr, f, indent=4)
+    with open(output_js_file, "w") as file:
+        json.dump(sorted_all_data_arr, file, indent=4)
 
+   
+  
+    
+    
 
 new_json(jsonPath, "result.json")
 
