@@ -6,7 +6,10 @@ This is a data exercise from Ellevation Education where I wrote functions to pro
 
 * [Python](https://www.python.org/)
 
+# How to use the project
+First all the original CSV files need to be organized in a file and find the path to this file directory. Store this file directory into a variable. To process the csv files, call the "process_all_csv_files(variable)" with the variable of the directory path as a parameter. 
 
+You should expect the processed csv file with a file name "test_final#.csv" (# indicates the number of the file) as an output. 
 # Explanation of the code
 All my main functions are located in the "main.py" file. In order to process CSV data and modifity it to align with the sample processed data, I used 5 steps which I summarized it in the function.py file.
 
