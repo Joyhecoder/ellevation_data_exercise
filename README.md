@@ -31,6 +31,7 @@ Here are my steps to approach efficiency to process multiple CSV files:
 
 # Files
 - "files" folder includes a few copies of same "sample-mcas.csv" for testing purposes to see if I could run my function to process multiple files. 
+- "output_files" folder includes the output files for the orignal files in the "file" folder.
 - "main.py" is my main python file for my functions and code.
 - "function.py" is a summary of my logic of how to process data.
 - The rest of the files are the results from running tests. 
