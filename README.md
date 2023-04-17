@@ -11,7 +11,7 @@ First all the original CSV files need to be organized in a file and find the pat
 
 You should expect the processed csv file with a file name "test_final#.csv" (# indicates the number of the file) as an output. 
 # Explanation of the code
-All my main functions are located in the "main.py" file. In order to process CSV data and modifity it to align with the sample processed data, I used 5 steps which I summarized it in the function.py file.
+All my main functions are located in the "main.py" file. In order to process CSV data and modifity it to align with the sample processed data, I used 6 steps which I summarized it in the function.py file.
 
 Here are my steps:
 
