@@ -278,6 +278,21 @@ all_file_path = './files'
 # files_arr = find_csv_files(all_file_path)
 # print(files_arr)
 
+#* delete extra files:
+def delete_files(tem_csv_file, temp_json_file, result_json_file):
+    try:
+        files_to_delete_arr = []
+        files_to_delete_arr.extend([tem_csv_file,temp_json_file,result_json_file])
+        print("files delete arr", files_to_delete_arr)
+        for file in files_to_delete_arr:
+            if os.path.exists(file):
+                os.remove(file)
+            else:
+                print("%s does not exist" % file)
+    except Exception as e:
+        print(e)      
+        
+# delete_files("test_temp1.csv", "test_temp1.json", "test_result1.json")
 
 #! Process all csv files function
 def process_all_csv_files(path_to_dir):
@@ -297,6 +312,10 @@ def process_all_csv_files(path_to_dir):
             
             process_data(original_csv_file, temp_csv_file, temp_json_file, result_json_file, final_csv_file)
             print('just converted %s file' %count )
+            
+            #* delete the extra files
+            delete_files(temp_csv_file, temp_json_file, result_json_file)
+            
             count += 1
     except Exception as e:
         print(e)
