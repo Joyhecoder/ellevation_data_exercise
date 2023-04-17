@@ -13,3 +13,6 @@ def process_data(original_csv_file, temp_csv_file, temp_json_file, result_json_f
     
     #* Convert json file to csv
     json_to_csv(result_json_file, final_csv_file)
+    
+     #* delete the extra files
+    delete_files(temp_csv_file, temp_json_file, result_json_file)
