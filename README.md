@@ -20,6 +20,7 @@ Here are my steps:
 - Step 3: Replace the Performance Level values in the JSON file by the code reference provided in the instruction document. 
 - Step 4: Create a new JSON file with existing data and modify it to align with the data format found in "sample-mcas-processed.cvs". Each student will have 3 rows of data to display the score data for each subject (ELA, math and science). The final data is sorted by student test ID so that all 3 subjects' data are together for easy lookup. 
 - Step 5: Convert the new JSON file back to CSV file. 
+- Step 6: Delete the extra files.
 
 
 
